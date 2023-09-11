@@ -11,7 +11,7 @@ This project also demonstrates a Hardhat use case. It comes with the contracts a
 ### 1. Overview of MITCOIN (MCN) Contract
 This contract implements the MITCOIN (MCN) ERC20 token. It is a standard ERC20 token contract that allows for the creation and transfer of MCN tokens. The contract is written in Solidity and follows the OpenZeppelin library's implementation of ERC20.
 
-# Token Details
+### Token Details
 - Token Name: MITCOIN
 * Token Symbol: MCN
 + Initial Supply: 1,000,000 MCN
@@ -20,7 +20,7 @@ This contract implements the MITCOIN (MCN) ERC20 token. It is a standard ERC20 t
 ### 2. Overview of DAPCOIN (DCN) Contract
 This contract implements the DAPCOIN (DCN) ERC20 token. It is a standard ERC20 token contract that allows for the creation and transfer of MCN tokens. The contract is written in Solidity and follows the OpenZeppelin library's implementation of ERC20.
 
-# Token Details
+### Token Details
 - Token Name: DAPCOIN
 * Token Symbol: DCN
 + Initial Supply: 1,000,000 MCN
