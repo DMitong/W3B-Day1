@@ -7,45 +7,45 @@ This project has three artefacts namely:
 
 This project also demonstrates a Hardhat use case. It comes with the contracts and the scripts that deploys the contracts.
 
-# More Information:
-# 1. Overview of MITCOIN (MCN) Contract
+## More Information:
+### 1. Overview of MITCOIN (MCN) Contract
 This contract implements the MITCOIN (MCN) ERC20 token. It is a standard ERC20 token contract that allows for the creation and transfer of MCN tokens. The contract is written in Solidity and follows the OpenZeppelin library's implementation of ERC20.
 
 # Token Details
-Token Name: MITCOIN
-Token Symbol: MCN
-Initial Supply: 1,000,000 MCN
-Decimals: 18
+- Token Name: MITCOIN
+* Token Symbol: MCN
++ Initial Supply: 1,000,000 MCN
+- Decimals: 18
 
-# 2. Overview of MITCOIN (MCN) Contract
-This contract implements the MITCOIN (MCN) ERC20 token. It is a standard ERC20 token contract that allows for the creation and transfer of MCN tokens. The contract is written in Solidity and follows the OpenZeppelin library's implementation of ERC20.
+### 2. Overview of DAPCOIN (DCN) Contract
+This contract implements the DAPCOIN (DCN) ERC20 token. It is a standard ERC20 token contract that allows for the creation and transfer of MCN tokens. The contract is written in Solidity and follows the OpenZeppelin library's implementation of ERC20.
 
 # Token Details
-Token Name: MITCOIN
-Token Symbol: MCN
-Initial Supply: 1,000,000 MCN
-Decimals: 18
+- Token Name: DAPCOIN
+* Token Symbol: DCN
++ Initial Supply: 1,000,000 MCN
+- Decimals: 18
 
-# 3. Overview of the Swap Contract
+### 3. Overview of the Swap Contract
 The SwapContract is a solidity smart contract written in solidity.
 
-# Contract Description
+## Contract Description
 The SwapContract is designed to facilitate the swapping of tokens on the Sepolia testnet. It allows users to swap tokenA(MITCOIN) for tokenB(DAPCOIN) and vice versa, as well as provide liquidity and remove liquidity from the contract.
 
-# Features
+## Features
 The SwapContract offers the following features:
 - Token Swapping: The swapping rate is calculated based on the reserves of tokenA and tokenB.
 - Liquidity Provision
 - Liquidity Removal
 - Reserves and Liquidity Information
 
-# Deployment
+## Deployment
 The SwapContract is deployed on the Sepolia testnet with typescript deployment using Hardhat.
 
-# Please note that the code provided is just an example, and you may need to modify it to suit your specific requirements.
+## Please note that the code provided is just an example, and you may need to modify it to suit your specific requirements.
 
-# Contributing
+## Contributing
 If you encounter any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request on the GitHub repository. I appreciate any contributions to make this contract better.
 
-# License
+## License
 The SwapContract is released under the UNLICENSED license. You are free to use, modify, and distribute the contract as per your requirements.
