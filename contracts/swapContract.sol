@@ -29,34 +29,39 @@ contract SwapContract {
     function swapAForB(uint _amountA) external {
         require(_amountA > 0, "Amount must be greater than 0");
 
-        uint amountB = (reserveB * _amountA) / reserveA;
+        uint amountB = (reserveB * (_amountA * reserveA)) / ((reserveA + _amountA) * 1000);
 
         require(tokenA.transferFrom(msg.sender, address(this), _amountA));
-
         require(tokenB.transfer(msg.sender, amountB));
 
         reserveA += _amountA;
         reserveB -= amountB;
+
+        emit TokenSwap(msg.sender, _amountA, amountB);
     }
 
     function swapBForA(uint _amountB) external {
-  
-    require(_amountB > 0, "Amount must be greater than 0");
+        require(_amountB > 0, "Amount must be greater than 0");
 
-    uint amountA = (reserveA * _amountB) / reserveB;
+        uint amountA = (reserveA * (_amountB * reserveB)) / ((reserveB + _amountB) * 1000);
 
-    require(tokenB.transferFrom(msg.sender, address(this), _amountB));
+        require(tokenB.transferFrom(msg.sender, address(this), _amountB));
+        require(tokenA.transfer(msg.sender, amountA));
 
-    require(tokenA.transfer(msg.sender, amountA));
+        reserveB += _amountB;
+        reserveA -= amountA;
 
-    reserveB += _amountB;
-    reserveA -= amountA;
+        emit TokenSwap(msg.sender, amountA, _amountB);
+    }
 
-  }
+    function addLiquidity(uint _amountA, uint _amountB) external {
+        require(_amountA > 0 && _amountB > 0, "Amount must be greater than 0");
 
-    function addLiquidity(uint256 _amountA, uint256 _amountB) external {
-        IERC20(tokenA).transferFrom(msg.sender, address(this), _amountA);
-        IERC20(tokenB).transferFrom(msg.sender, address(this), _amountB);
+        uint sqrtK = (reserveA * reserveB) / 1000;
+        uint mintedLP = (sqrtK * (_amountA + reserveA)) / reserveA - reserveA;
+
+        require(tokenA.transferFrom(msg.sender, address(this), _amountA));
+        require(tokenB.transferFrom(msg.sender, address(this), _amountB));
 
         reserveA += _amountA;
         reserveB += _amountB;
@@ -64,22 +69,35 @@ contract SwapContract {
         LiquidityProvider storage provider = liquidityProvider[msg.sender];
         provider.amountA += _amountA;
         provider.amountB += _amountB;
+
+        require(tokenA.transfer(msg.sender, mintedLP));
+
+        emit TokenSwap(msg.sender, _amountA, _amountB);
     }
 
-    function removeLiquidity(uint256 _amountA, uint256 _amountB) external {
+    function removeLiquidity(uint _amountA, uint _amountB) external {
+        require(_amountA > 0 && _amountB > 0, "Amount must be greater than 0");
+
         LiquidityProvider storage provider = liquidityProvider[msg.sender];
 
-        require(provider.amountA >= _amountA, "Insufficient liquidity");
-        require(provider.amountB >= _amountB, "Insufficient liquidity");
+        require(provider.amountA >= _amountA, "Insufficient liquidity for token A");
+        require(provider.amountB >= _amountB, "Insufficient liquidity for token B");
 
-        IERC20(tokenA).transfer(msg.sender, _amountA);
-        IERC20(tokenB).transfer(msg.sender, _amountB);
+        uint sqrtK = (reserveA * reserveB) / 1000;
+        uint burnLP = (sqrtK * (_amountA + reserveA)) / reserveA - reserveA;
+
+        require(tokenA.transfer(msg.sender, _amountA));
+        require(tokenB.transfer(msg.sender, _amountB));
 
         provider.amountA -= _amountA;
         provider.amountB -= _amountB;
 
         reserveA -= _amountA;
         reserveB -= _amountB;
+
+        require(tokenA.transferFrom(address(this), msg.sender, burnLP));
+
+        emit TokenSwap(msg.sender, _amountA, _amountB);
     }
 
     function getReserves() public view returns (uint, uint) {
